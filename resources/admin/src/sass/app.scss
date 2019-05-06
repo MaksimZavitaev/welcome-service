@@ -3,12 +3,27 @@
 @import url('https://fonts.googleapis.com/css?family=Nunito');
 
 // Variables
-@import 'variables';
+//@import 'variables';
 
 // Bootstrap
-@import '~bootstrap/scss/bootstrap';
+@import "~bootstrap-sass/assets/stylesheets/bootstrap";
 
-.navbar-laravel {
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+// AdminLTE
+@import "~admin-lte/dist/css/AdminLTE";
+@import "~admin-lte/dist/css/skins/skin-yellow";
+
+.content-wrapper {
+    min-height: 1000px;
+
+    & .content-header {
+        & .breadcrumb {
+            position: initial;
+            float: left;
+            margin-bottom: 10px;
+        }
+    }
+
+    & .content {
+        margin-top: 30px;
+    }
 }

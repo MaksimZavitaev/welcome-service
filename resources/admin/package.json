@@ -26,6 +26,8 @@
         "admin-lte": "^2.4.10",
         "bootstrap-sass": "^3.4.1",
         "font-awesome": "^4.7.0",
+        "icheck": "^1.0.2",
+        "select2": "^4.0.7-rc.0",
         "sweetalert2": "^8.10.2"
     }
 }

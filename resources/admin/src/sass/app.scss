@@ -1,16 +1,15 @@
-
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Nunito');
-
 // Variables
 //@import 'variables';
-
 // Bootstrap
 @import "~bootstrap-sass/assets/stylesheets/bootstrap";
-
 // Fontawesome
 @import "~font-awesome/scss/font-awesome";
-
+// Select2
+@import "~select2/dist/css/select2.css";
+// iCheck
+@import "~icheck/skins/flat/orange.css";
 // AdminLTE
 @import "~admin-lte/dist/css/AdminLTE";
 @import "~admin-lte/dist/css/skins/skin-yellow";

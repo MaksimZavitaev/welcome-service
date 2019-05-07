@@ -24,6 +24,8 @@ mix
         'vue',
         'bootstrap-sass',
         'admin-lte',
+        'icheck',
+        'select2',
         'sweetalert2',
     ])
     .version();

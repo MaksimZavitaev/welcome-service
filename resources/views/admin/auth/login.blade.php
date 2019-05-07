@@ -33,7 +33,7 @@
                 <div class="row">
                     <input type="hidden" name="remember" id="remember" value="on">
                     <div class="col-xs-offset-8 col-xs-4">
-                        <button type="submit" class="btn btn-primary btn-block btn-flat">Войти</button>
+                        <button type="submit" class="btn btn-warning btn-block btn-flat">Войти</button>
                     </div>
                 </div>
             </form>

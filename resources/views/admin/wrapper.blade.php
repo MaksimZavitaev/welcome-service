@@ -22,7 +22,7 @@
                             <ul class="dropdown-menu">
                                 <li class="user-footer">
                                     <div class="pull-right">
-                                        <form method="POST" action="{{ route('logout') }}">
+                                        <form method="POST" action="{{ route('admin.logout') }}">
                                             @csrf
                                             <button type="submit" class="btn btn-default btn-flat">Выйти</button>
                                         </form>

@@ -29,6 +29,8 @@
 </head>
 <body class="hold-transition skin-yellow">
 @yield('wrapper')
+<script src="{{ mix('js/manifest.js', 'admin') }}"></script>
+<script src="{{ mix('js/vendor.js', 'admin') }}"></script>
 <script src="{{ mix('js/app.js', 'admin') }}"></script>
 @stack('scripts')
 </body>

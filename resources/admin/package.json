@@ -25,6 +25,7 @@
     "dependencies": {
         "admin-lte": "^2.4.10",
         "bootstrap-sass": "^3.4.1",
-        "font-awesome": "^4.7.0"
+        "font-awesome": "^4.7.0",
+        "sweetalert2": "^8.10.2"
     }
 }

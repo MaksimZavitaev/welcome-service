@@ -16,4 +16,14 @@ mix
     .setResourceRoot('../')
     .js('src/js/app.js', 'js')
     .sass('src/sass/app.scss', 'css')
+    .extract([
+        'axios',
+        'jquery',
+        'lodash',
+        'popper.js',
+        'vue',
+        'bootstrap-sass',
+        'admin-lte',
+        'sweetalert2',
+    ])
     .version();

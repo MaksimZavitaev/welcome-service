@@ -16,7 +16,11 @@
             @foreach($users as $user)
                 <tr>
                     <td>{{$user->id}}</td>
-                    <td>{{$user->name}}</td>
+                    <td>
+                        <a href="{{ route('admin.users.edit', $user) }}">
+                            {{$user->name}}
+                        </a>
+                    </td>
                     <td>{{$user->created_at}}</td>
                     <td></td>
                     <td style="width: 10px;">

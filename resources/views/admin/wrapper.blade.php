@@ -38,6 +38,17 @@
 
         <aside class="main-sidebar">
             <section class="sidebar">
+                <ul class="sidebar-menu" data-widget="tree">
+                    @hasrole('administrator')
+                    <li class="header">Администрирование</li>
+                    <li class="{{ request()->route()->named('admin.users.*') ? 'active' : '' }}">
+                        <a href="{{ route('admin.users.index') }}">
+                            <i class="fa fa-users"></i>
+                            <span>Пользователи</span>
+                        </a>
+                    </li>
+                    @endhasrole
+                </ul>
             </section>
         </aside>
 

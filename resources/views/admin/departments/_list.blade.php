@@ -7,6 +7,11 @@
         <div class="col-md-4">
             <div class="box box-warning">
                 <div class="box-body">
+                    <a class="btn btn-sm btn-block btn-success"
+                       type="button"
+                       href="{{ route('admin.departments.create') }}">
+                        Создать
+                    </a>
                     <div class="list-group list-group-unbordered">
                         @foreach($departments->sortBy('name') as $department)
                             <a class="list-group-item clearfix {{ !$department->childs_count ? 'disabled' : '' }}"

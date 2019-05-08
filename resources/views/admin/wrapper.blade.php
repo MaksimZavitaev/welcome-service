@@ -47,6 +47,12 @@
                             <span>Пользователи</span>
                         </a>
                     </li>
+                    <li class="{{ request()->route()->named('admin.departments.*') ? 'active' : '' }}">
+                        <a href="{{ route('admin.departments.index') }}">
+                            <i class="fa fa-sitemap"></i>
+                            <span>Структура компании</span>
+                        </a>
+                    </li>
                     @endhasrole
                 </ul>
             </section>

@@ -20,4 +20,5 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('', 'IndexController@index');
 
     Route::resource('users', 'UserController')->except(['show']);
+    Route::resource('departments', 'DepartmentController')->except(['show']);
 });

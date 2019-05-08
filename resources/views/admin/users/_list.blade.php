@@ -15,14 +15,20 @@
         ])
             @foreach($users as $user)
                 <tr>
-                    <td>{{$user->id}}</td>
+                    <td style="width: 10px;">{{$user->id}}</td>
                     <td>
                         <a href="{{ route('admin.users.edit', $user) }}">
                             {{$user->name}}
                         </a>
                     </td>
                     <td>{{$user->created_at}}</td>
-                    <td></td>
+                    <td>
+                        @forelse($user->roles as $role)
+                            <span class="label label-warning text-black">{{ __('roles.' . $role->name) }}</span>
+                        @empty
+                            Ничего
+                        @endforelse
+                    </td>
                     <td style="width: 10px;">
                         @component('admin.components.delete_button', [
                         'item' => $user,

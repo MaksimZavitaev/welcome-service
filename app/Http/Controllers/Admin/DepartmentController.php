@@ -13,7 +13,7 @@ class DepartmentController
     {
         $pid = request()->input('pid');
         $departments = Department::with('parent')
-                                 ->where('department_id', $pid)
+                                 ->where('parent_id', $pid)
                                  ->withCount('childs')
                                  ->get();
 
@@ -34,7 +34,7 @@ class DepartmentController
         $department = new Department($request->input());
 
         if ($department->save()) {
-            return redirect()->route('admin.departments.index', ['pid' => $department->department_id])->withSuccess('Департамент успешно создан.');
+            return redirect()->route('admin.departments.index', ['pid' => $department->parent_id])->withSuccess('Департамент успешно создан.');
         }
 
         return redirect()->route('admin.departments.create')
@@ -44,9 +44,14 @@ class DepartmentController
 
     public function edit(Department $department)
     {
-        $departments = Department::with('parent')->get()->mapWithKeys(function ($department) {
-            return [$department->id => $department->title . ($department->parent ? " ({$department->parent->title})" : '')];
-        });
+        $departments = Department::with('parent')
+                                 ->get()
+                                 ->reject(function ($item) use ($department) {
+                                     return $item->id === $department->id;
+                                 })
+                                 ->mapWithKeys(function ($department) {
+                                     return [$department->id => $department->title . ($department->parent ? " ({$department->parent->title})" : '')];
+                                 });
         return view('admin.departments.edit', compact('department', 'departments'));
     }
 

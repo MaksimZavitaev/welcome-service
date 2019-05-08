@@ -25,7 +25,7 @@ class DepartmentRequest extends FormRequest
     {
         return [
             'title' => 'required|string|max:255',
-            'department_id' => 'nullable|exists:departments,id'
+            'parent_id' => 'nullable|exists:departments,id'
         ];
     }
 }

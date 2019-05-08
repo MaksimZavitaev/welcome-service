@@ -8,7 +8,7 @@ class Department extends Model
 {
     protected $fillable = [
         'title',
-        'department_id',
+        'parent_id',
     ];
 
     public $timestamps = false;
@@ -25,6 +25,6 @@ class Department extends Model
 
     public function childs()
     {
-        return $this->hasMany(self::class);
+        return $this->hasMany(self::class, 'parent_id');
     }
 }

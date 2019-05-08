@@ -25,9 +25,9 @@ $pid = request()->input('pid');
                 'class' => 'form-control' . ($errors->has('title') ? ' is-invalid' : ''),
                 'required']) !!}
             </div>
-            <div class="form-group {{$errors->has('department_id') ? 'has-error' : ''}}">
-                {!! Form::label('department_id', 'Родитель') !!}
-                {!! Form::select('department_id', $departments, (isset($department) && $department->parent !== null) ? $department->parent->id : $pid,[
+            <div class="form-group {{$errors->has('parent_id') ? 'has-error' : ''}}">
+                {!! Form::label('parent_id', 'Родитель') !!}
+                {!! Form::select('parent_id', $departments, (isset($department) && $department->parent !== null) ? $department->parent->id : $pid,[
                 'class' => 'form-control select2',
                 'placeholder' => 'Без родителя']) !!}
             </div>

@@ -15,10 +15,10 @@ class CreateDepartmentsTable extends Migration
     {
         Schema::create('departments', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('department_id')->nullable();
+            $table->unsignedBigInteger('parent_id')->nullable();
             $table->string('title');
 
-            $table->foreign('department_id')
+            $table->foreign('parent_id')
                   ->references('id')
                   ->on('departments')
                   ->onUpdate('cascade')

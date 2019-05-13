@@ -47,6 +47,12 @@
                             <span>Пользователи</span>
                         </a>
                     </li>
+                    <li class="{{ request()->route()->named('admin.employees.*') ? 'active' : '' }}">
+                        <a href="{{ route('admin.employees.index') }}">
+                            <i class="fa fa-child"></i>
+                            <span>Сотрудники</span>
+                        </a>
+                    </li>
                     <li class="{{ request()->route()->named('admin.departments.*') ? 'active' : '' }}">
                         <a href="{{ route('admin.departments.index') }}">
                             <i class="fa fa-sitemap"></i>

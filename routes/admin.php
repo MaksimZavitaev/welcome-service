@@ -21,4 +21,5 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::resource('users', 'UserController')->except(['show']);
     Route::resource('departments', 'DepartmentController')->except(['show']);
+    Route::resource('employees', 'EmployeeController')->except(['show']);
 });

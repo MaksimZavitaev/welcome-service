@@ -20,12 +20,14 @@ class CreateEmployeesTable extends Migration
             $table->string('firstname');
             $table->string('lastname');
             $table->string('patronymic')->nullable();
+            $table->string('email');
             $table->string('mobile_number');
             $table->string('work_number');
             $table->string('extension_number');
             $table->timestamps();
             $table->softDeletes();
 
+            $table->unique('email');
             $table->foreign('department_id')
                   ->references('id')
                   ->on('departments')

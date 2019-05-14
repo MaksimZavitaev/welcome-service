@@ -6,6 +6,8 @@ require('select2/dist/js/select2.full');
 require('icheck/icheck');
 require('admin-lte');
 
+require('./vue');
+
 $(function () {
     //Flat red color scheme for iCheck
     $('input[type="checkbox"].flat-orange, input[type="radio"].flat-orange').iCheck({

@@ -28,7 +28,9 @@
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 <body class="hold-transition skin-yellow">
-@yield('wrapper')
+    <div id="app">
+        @yield('wrapper')
+    </div>
 <script src="{{ mix('js/manifest.js', 'admin') }}"></script>
 <script src="{{ mix('js/vendor.js', 'admin') }}"></script>
 <script src="{{ mix('js/app.js', 'admin') }}"></script>

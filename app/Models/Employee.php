@@ -30,4 +30,25 @@ class Employee extends Model
     {
         return $this->belongsTo(Department::class);
     }
+
+    public function pages()
+    {
+        return $this->belongsToMany(Page::class)->using(EmployeePage::class)->withPivot('content', 'block', 'steps');
+    }
+
+    public function getFirstDayPage()
+    {
+        $page = $this->pages()->whereSlug('first_day')->first() ?? Page::whereSlug('first_day')->first();
+        if(!$page) {
+            return $page;
+        }
+
+        $page = $page->toArray();
+        if(array_key_exists('pivot', $page)) {
+            $page = array_merge($page, $page['pivot']);
+            unset($page['pivot']);
+        }
+
+        return $page;
+    }
 }

@@ -22,4 +22,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('users', 'UserController')->except(['show']);
     Route::resource('departments', 'DepartmentController')->except(['show']);
     Route::resource('employees', 'EmployeeController')->except(['show']);
+
+    Route::prefix('pages')->as('pages.')->group(function () {
+        Route::get('', 'Pages\IndexController')->name('index');
+        Route::get('home/edit', 'Pages\HomeController@edit')->name('home.edit');
+        Route::put('home', 'Pages\HomeController@update')->name('home.update');
+        Route::get('first_day/edit', 'Pages\FirstDayController@edit')->name('first_day.edit');
+        Route::put('first_day', 'Pages\FirstDayController@update')->name('first_day.update');
+    });
 });

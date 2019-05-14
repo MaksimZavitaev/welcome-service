@@ -59,6 +59,12 @@
                             <span>Структура компании</span>
                         </a>
                     </li>
+                    <li class="{{ request()->route()->named('admin.pages.*') ? 'active' : '' }}">
+                        <a href="{{ route('admin.pages.index') }}">
+                            <i class="fa fa-newspaper-o"></i>
+                            <span>Страницы</span>
+                        </a>
+                    </li>
                     @endhasrole
                 </ul>
             </section>

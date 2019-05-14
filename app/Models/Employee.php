@@ -49,6 +49,6 @@ class Employee extends Model
             unset($page['pivot']);
         }
 
-        return $page;
+        return array2object($page);
     }
 }

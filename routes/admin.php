@@ -22,6 +22,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('users', 'UserController')->except(['show']);
     Route::resource('departments', 'DepartmentController')->except(['show']);
     Route::resource('employees', 'EmployeeController')->except(['show']);
+    Route::put('employees/{employee}/page/first_day', 'EmployeeController@updateFirstDayPage')->name('employees.first_day.update');
+    Route::delete('employees/{employee}/page/first_day', 'EmployeeController@deleteFirstDayPage')->name('employees.first_day.delete');
 
     Route::prefix('pages')->as('pages.')->group(function () {
         Route::get('', 'Pages\IndexController')->name('index');

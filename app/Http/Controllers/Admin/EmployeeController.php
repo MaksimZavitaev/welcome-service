@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Employee;
 use App\Models\Department;
 use App\Http\Requests\Admin\EmployeeRequest;
+use App\Models\Page;
 
 class EmployeeController extends Controller
 {
@@ -81,5 +82,54 @@ class EmployeeController extends Controller
         }
 
         return $redirector->withErrors('При удалении записи произошла ошибка. Пожалуйста повторите попытку.');
+    }
+
+    public function updateFirstDayPage(Employee $employee)
+    {
+        $page = Page::whereSlug('first_day')->firstOrFail();
+        $result = $employee->pages()->sync([$page->id => [
+            'block' => request()->input('block'),
+            'content' => request()->input('content'),
+            'steps' => request()->input('steps'),
+        ]]);
+        $redirector = redirect()->route('admin.employees.edit', $employee);
+
+        if(count($result['updated']) || count($result['attached'])) {
+            return $redirector->withSuccess('Запись успешно обновлена.');
+        }
+
+        return $redirector->withInput(request()->input())->withErrors('При обнолении данных страницы произошла ошибка.');
+    }
+
+    public function deleteFirstDayPage(Employee $employee) {
+        $page = Page::whereSlug('first_day')->firstOrFail();
+        $result = $employee->pages()->detach($page->id);
+
+        if(!request()->ajax()) {
+            $redirector = redirect()->route('admin.employees.edit', $employee);
+
+            if($result) {
+                return $redirector->withSuccess('Запись успешно обновлена.');
+            }
+        
+            return $redirector->withInput(request()->input())->withErrors('При обнолении данных страницы произошла ошибка.');
+        }
+
+        $response = [
+            'redirect' => route('admin.employees.edit', $employee),
+        ];
+
+        if($result) {
+            request()->session()->flash(
+                'success', 'Запись успешно обновлена.'
+            );
+            return $response;
+        }
+
+        request()->session()->flash(
+            'errors', 'При обнолении данных страницы произошла ошибка.'
+        );
+        return $response;
+
     }
 }

@@ -32,4 +32,22 @@
     </div>
 </div>
 
-@include('admin.shared.form_box_footer')
+<div class="box-footer">
+    <button type="submit" class="btn btn-success btn-sm">Принять</button>
+    @if (isset($employee) && $employee->pages()->whereSlug('first_day')->first())
+        <button id="reset" class="btn btn-warning btn-sm">Сбросить страницу</button>
+        @push('scripts')
+            <script>
+                $('#reset').click(function (e) {
+                    e.preventDefault()
+                    axios.delete("{{ route('admin.employees.first_day.delete', $employee) }}")
+                    .then(function (data) {
+                        console.log(data);
+                        window.location.reload();
+                    })
+                });
+            </script>
+        @endpush
+    @endif
+</div>
+

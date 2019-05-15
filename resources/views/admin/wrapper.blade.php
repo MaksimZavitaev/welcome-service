@@ -49,12 +49,6 @@
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li class="{{ request()->route()->named('admin.categories.*') ? 'active' : '' }}">
-                                <a href="{{ route('admin.categories.index') }}">
-                                    <i class="fa fa-circle-o"></i>
-                                    Категории
-                                </a>
-                            </li>
                             <li class="{{ request()->route()->named('admin.posts.*') ? 'active' : '' }}">
                                 <a href="{{ route('admin.posts.index') }}">
                                     <i class="fa fa-circle-o"></i>
@@ -78,6 +72,24 @@
                             </li>
                         </ul>
                     </li>
+                    <li class="{{ request()->route()->named('admin.employees.*') ? 'active' : '' }}">
+                        <a href="{{ route('admin.employees.index') }}">
+                            <i class="fa fa-child"></i>
+                            <span>Сотрудники</span>
+                        </a>
+                    </li>
+                    {{-- <li class="{{ request()->route()->named('admin.departments.*') ? 'active' : '' }}">
+                        <a href="{{ route('admin.departments.index') }}">
+                            <i class="fa fa-sitemap"></i>
+                            <span>Структура компании</span>
+                        </a>
+                    </li> --}}
+                    <li class="{{ request()->route()->named('admin.pages.*') ? 'active' : '' }}">
+                        <a href="{{ route('admin.pages.index') }}">
+                            <i class="fa fa-newspaper-o"></i>
+                            <span>Страницы</span>
+                        </a>
+                    </li>
                     @endhasanyrole
                     @hasrole('administrator')
                     <li class="header">Администрирование</li>
@@ -85,24 +97,6 @@
                         <a href="{{ route('admin.users.index') }}">
                             <i class="fa fa-users"></i>
                             <span>Пользователи</span>
-                        </a>
-                    </li>
-                    <li class="{{ request()->route()->named('admin.employees.*') ? 'active' : '' }}">
-                        <a href="{{ route('admin.employees.index') }}">
-                            <i class="fa fa-child"></i>
-                            <span>Сотрудники</span>
-                        </a>
-                    </li>
-                    <li class="{{ request()->route()->named('admin.departments.*') ? 'active' : '' }}">
-                        <a href="{{ route('admin.departments.index') }}">
-                            <i class="fa fa-sitemap"></i>
-                            <span>Структура компании</span>
-                        </a>
-                    </li>
-                    <li class="{{ request()->route()->named('admin.pages.*') ? 'active' : '' }}">
-                        <a href="{{ route('admin.pages.index') }}">
-                            <i class="fa fa-newspaper-o"></i>
-                            <span>Страницы</span>
                         </a>
                     </li>
                     @endhasrole

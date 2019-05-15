@@ -19,7 +19,7 @@
                     <td style="width: 10px;">{{$item->id}}</td>
                     <td><a href="{{ route('admin.employees.edit', $item) }}">{{$item->fullname}}</a></td>
                     <td>{{$item->created_at}}</td>
-                    <td>{{$item->department->title}}</td>
+                    <td>{{$item->department}}</td>
                     <td>{{$item->position}}</td>
                     <td style="width: 10px;">
                         @if(!$item->deleted_at)

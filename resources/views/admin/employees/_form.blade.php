@@ -3,7 +3,7 @@
 </div>
 <div class="box-body">
     <div class="form-group">
-        {!! Form::checkbox('active', true, isset($employee) && !$employee->deleted_at, ['class' => 'flat-orange']) !!}
+        {!! Form::checkbox('active', true, !isset($employee) ?: !$employee->deleted_at, ['class' => 'flat-orange']) !!}
         {!! Form::label('active', 'Активен') !!}
     </div>
     <div class="row">
@@ -37,17 +37,17 @@
                         'class' => 'form-control']) !!}
                     </div>
                     <div class="form-group {{$errors->has('mobile_number') ? ' has-error' : ''}}">
-                        {!! Form::label('mobile_number', 'Мобильный') !!}
+                        {!! Form::label('mobile_number', 'Мобильный') !!} <small>+7 (xxx) xxx xx xx</small>
                         {!! Form::text('mobile_number', null, [
                         'class' => 'form-control']) !!}
                     </div>
                     <div class="form-group {{$errors->has('work_number') ? ' has-error' : ''}}">
-                        {!! Form::label('work_number', 'Рабочий') !!}
+                        {!! Form::label('work_number', 'Рабочий') !!} <small>+7 (xxx) xxx xx xx</small>
                         {!! Form::text('work_number', null, [
                         'class' => 'form-control']) !!}
                     </div>
                     <div class="form-group {{$errors->has('extension_number') ? ' has-error' : ''}}">
-                        {!! Form::label('extension_number', 'Внутренний') !!}
+                        {!! Form::label('extension_number', 'Внутренний') !!} <small>xxxxx</small>
                         {!! Form::text('extension_number', null, [
                         'class' => 'form-control']) !!}
                     </div>
@@ -56,20 +56,26 @@
         </div>
         <div class="col-md-6">
             <h3>Должность и подразделение</h3>
+            <div class="form-group {{$errors->has('department') ? ' has-error' : ''}}">
+                {!! Form::label('department', ' Подразделение') !!}
+                {!! Form::text('department', null, [
+                'class' => 'form-control',
+                'required']) !!}
+            </div>
             <div class="form-group {{$errors->has('position') ? ' has-error' : ''}}">
                 {!! Form::label('position', ' Должность') !!}
                 {!! Form::text('position', null, [
                 'class' => 'form-control',
                 'required']) !!}
             </div>
-            <div class="form-group {{$errors->has('department_id') ? ' has-error' : ''}}">
+            {{-- <div class="form-group {{$errors->has('department_id') ? ' has-error' : ''}}">
                 {!! Form::label('department_id','Подразделение') !!}
                 {!! Form::select('department_id', $departments, isset($employee) ? $employee->department->pluck('id') : null, [
                 'class' => 'form-control select2' . ($errors->has('department_id') ? ' is-invalid' : ''),
                 'placeholder' => 'Выберете подразделение',
                 'required',
                 ]) !!}
-            </div>
+            </div> --}}
         </div>
     </div>
 </div>

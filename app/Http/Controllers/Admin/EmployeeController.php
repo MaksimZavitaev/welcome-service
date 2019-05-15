@@ -13,8 +13,7 @@ class EmployeeController extends Controller
 {
     public function index()
     {
-        $employees = Employee::with('department')
-                            ->withTrashed()
+        $employees = Employee::withTrashed()
                             ->orderBy('deleted_at')
                             ->get();
         return view('admin.employees.index', compact('employees'));

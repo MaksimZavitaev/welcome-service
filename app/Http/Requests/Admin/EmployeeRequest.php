@@ -31,10 +31,11 @@ class EmployeeRequest extends FormRequest
             'patronymic' => 'required|string|max:255',
             'position' => 'required',
             'email' => 'required|email|unique:employees,email'.($employee ? ",$employee->id" : ''),
-            'mobile_number' => 'required|regex:/^\+7\-[0-9]{3}\-[0-9]{3}\-[0-9]{2}\-[0-9]{2}/i',
-            'work_number' => 'required|regex:/^\+7\-[0-9]{3}\-[0-9]{3}\-[0-9]{2}\-[0-9]{2}/i',
+            'mobile_number' => 'required|regex:/^\+7 \([0-9]{3}\) [0-9]{3} [0-9]{2} [0-9]{2}/i',
+            'work_number' => 'required|regex:/^\+7 \([0-9]{3}\) [0-9]{3} [0-9]{2} [0-9]{2}/i',
             'extension_number' => 'required|numeric',
-            'department_id' => 'required|exists:departments,id'
+            'department' => 'required|string',
+            // 'department_id' => 'required|exists:departments,id'
         ];
     }
 }

@@ -10,7 +10,7 @@ class Employee extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'department_id',
+        'department',
         'position',
         'firstname',
         'lastname',
@@ -24,11 +24,6 @@ class Employee extends Model
     public function getFullnameAttribute(): string
     {
         return title_case(("{$this->lastname} {$this->firstname}").(" {$this->patronymic}" ?? ''));
-    }
-
-    public function department()
-    {
-        return $this->belongsTo(Department::class);
     }
 
     public function pages()

@@ -5,8 +5,12 @@ require('admin-lte/bower_components/fastclick/lib/fastclick');
 require('select2/dist/js/select2.full');
 require('icheck/icheck');
 require('admin-lte');
+require('trumbowyg');
+require('trumbowyg/dist/langs/ru');
 
 require('./vue');
+
+$.trumbowyg.svgPath = '/admin/images/vendor/trumbowyg/dist/ui/icons.svg';
 
 $(function () {
     //Flat red color scheme for iCheck

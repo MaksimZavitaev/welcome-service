@@ -27,5 +27,6 @@ mix
         'icheck',
         'select2',
         'sweetalert2',
+        'trumbowyg',
     ])
     .version();

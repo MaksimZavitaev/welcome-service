@@ -39,6 +39,46 @@
         <aside class="main-sidebar">
             <section class="sidebar">
                 <ul class="sidebar-menu" data-widget="tree">
+                    @hasanyrole('writer|administrator')
+                    <li class="treeview {{ request()->route()->named('admin.categories.*') || request()->route()->named('admin.posts.*') ? 'active' : '' }}">
+                        <a href="#">
+                            <i class="fa fa-registered"></i>
+                            <span>Контент</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li class="{{ request()->route()->named('admin.categories.*') ? 'active' : '' }}">
+                                <a href="{{ route('admin.categories.index') }}">
+                                    <i class="fa fa-circle-o"></i>
+                                    Категории
+                                </a>
+                            </li>
+                            <li class="{{ request()->route()->named('admin.posts.*') ? 'active' : '' }}">
+                                <a href="{{ route('admin.posts.index') }}">
+                                    <i class="fa fa-circle-o"></i>
+                                    Контент
+                                    <span class="pull-right-container">
+                                        <i class="fa {{ request()->route()->named('admin.posts.*') ? 'fa-angle-down' : 'fa-angle-left' }} pull-right"></i>
+                                    </span>
+                                </a>
+                                @if(request()->route()->named('admin.posts.*'))
+                                    <ul class="treeview-menu">
+                                        @foreach (\App\Models\Category::pluck('title', 'slug') as $slug => $title)
+                                            <li class="{{ request()->route()->named('admin.posts.*') && request()->get('category') === $slug ? 'active' : '' }}">
+                                                <a href="{{ route('admin.posts.index', ['category' => $slug]) }}">
+                                                    <i class="fa fa-circle-o"></i>
+                                                    {{$title}}
+                                                </a>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                @endif
+                            </li>
+                        </ul>
+                    </li>
+                    @endhasanyrole
                     @hasrole('administrator')
                     <li class="header">Администрирование</li>
                     <li class="{{ request()->route()->named('admin.users.*') ? 'active' : '' }}">

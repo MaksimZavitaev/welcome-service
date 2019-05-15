@@ -16,12 +16,15 @@
                 'class' => 'form-control',
                 'required']) !!}
             </div>
-            <div class="form-group {{$errors->has('content') ? ' has-error' : ''}}">
-                {!! Form::label('content', 'Содержимое') !!}
-                {!! Form::textarea('content', null, [
-                'class' => 'form-control',
-                'required']) !!}
-            </div>
+            @component('admin.components.trumbowyg', [
+                'name' => 'content',
+                'title' => 'Содержимое',
+                'options' => [
+                    'class' => 'form-control',
+                    'required',
+                ],
+            ])
+            @endcomponent
         </div>
         <div class="col-md-6">
             <div class="form-group {{$errors->has('steps') ? ' has-error' : ''}}">

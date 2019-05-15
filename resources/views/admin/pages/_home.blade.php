@@ -10,12 +10,6 @@
                 'class' => 'form-control',
                 'required']) !!}
             </div>
-            <div class="form-group {{$errors->has('announcement') ? ' has-error' : ''}}">
-                {!! Form::label('announcement', 'Анонс') !!}
-                {!! Form::textarea('announcement', null, [
-                'class' => 'form-control',
-                'required']) !!}
-            </div>
         </div>
         <div class="col-md-6">
             <div class="form-group {{$errors->has('video') ? ' has-error' : ''}}">
@@ -24,12 +18,28 @@
                 'class' => 'form-control',
                 'required']) !!}
             </div>
-            <div class="form-group {{$errors->has('content') ? ' has-error' : ''}}">
-                {!! Form::label('content', 'Содержимое') !!}
-                {!! Form::textarea('content', null, [
-                'class' => 'form-control',
-                'required']) !!}
-            </div>
+        </div>
+        <div class="col-md-12">
+            @component('admin.components.trumbowyg', [
+                'name' => 'announcement',
+                'title' => 'Анонс',
+                'options' => [
+                    'class' => 'form-control',
+                    'required',
+                ],
+            ])
+            @endcomponent
+        </div>
+        <div class="col-md-12">
+            @component('admin.components.trumbowyg', [
+                'name' => 'content',
+                'title' => 'Содержимое',
+                'options' => [
+                    'class' => 'form-control',
+                    'required',
+                ],
+            ])
+            @endcomponent
         </div>
     </div>
 </div>

@@ -13,9 +13,16 @@ class PostController extends Controller
 {
     public function index()
     {
-        return view('admin.posts.index', [
-            'posts' => Post::with('category')->get(),
-        ]);
+        $post = Post::with('category');
+        if(request()->has('category')) {
+            $post->whereHas('category', function($query) {
+                $query->where('slug', request()->get('category'));
+            });
+        }
+        
+        $posts = $post->get();
+
+        return view('admin.posts.index', compact('posts'));
     }
 
     public function create()

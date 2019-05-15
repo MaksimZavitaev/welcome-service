@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use App\Models\Page;
 
 class CreatePagesTable extends Migration
 {
@@ -15,7 +16,9 @@ class CreatePagesTable extends Migration
     {
         Schema::create('pages', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('slug')->unique();
+            $table->unsignedBigInteger('author_id');
+            $table->unsignedInteger('category_id')->nullable();
+            $table->string('slug')->nullable()->unique();
             $table->string('title');
             $table->text('content');
             $table->text('announcement')->nullable();
@@ -23,6 +26,10 @@ class CreatePagesTable extends Migration
             $table->text('block')->nullable();
             $table->json('steps')->nullable();
             $table->timestamps();
+
+            $table->foreign('author_id')
+                ->references('id')
+                ->on('users');
         });
 
         Schema::create('employee_page', function (Blueprint $table) {

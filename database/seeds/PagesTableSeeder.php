@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\Models\Page;
+use App\Models\User;
 
 class PagesTableSeeder extends Seeder
 {
@@ -12,8 +13,10 @@ class PagesTableSeeder extends Seeder
      */
     public function run()
     {
+        $author = User::where('name', 'Admin')->first();
         Page::firstOrCreate(['slug' => 'home',],
         [
+            'author_id' => $author->id,
             'title' => 'Главная',
             'content' => 'Content',
             'announcement' => 'Анонс',
@@ -21,6 +24,7 @@ class PagesTableSeeder extends Seeder
         ]);
         Page::firstOrCreate(['slug' => 'first_day',],
         [
+            'author_id' => $author->id,
             'title' => '1-й день в компании',
             'content' => 'Content',
             'block' => 'Текст блока',

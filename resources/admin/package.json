@@ -27,6 +27,7 @@
         "bootstrap-sass": "^3.4.1",
         "font-awesome": "^4.7.0",
         "icheck": "^1.0.2",
+        "inputmask": "^4.0.8",
         "select2": "^4.0.7-rc.0",
         "sweetalert2": "^8.10.2",
         "trumbowyg": "^2.16.2"

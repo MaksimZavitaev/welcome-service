@@ -38,13 +38,11 @@
                     </div>
                     <div class="form-group {{$errors->has('mobile_number') ? ' has-error' : ''}}">
                         {!! Form::label('mobile_number', 'Мобильный') !!} <small>+7 (xxx) xxx xx xx</small>
-                        {!! Form::text('mobile_number', null, [
-                        'class' => 'form-control']) !!}
+                        <input id="mobile_number" class="form-control" type="text" value="{{ isset($employee) ? $employee->mobile_phone : '' }}" v-mask="'phone'" required>
                     </div>
                     <div class="form-group {{$errors->has('work_number') ? ' has-error' : ''}}">
                         {!! Form::label('work_number', 'Рабочий') !!} <small>+7 (xxx) xxx xx xx</small>
-                        {!! Form::text('work_number', null, [
-                        'class' => 'form-control']) !!}
+                        <input id="work_number" class="form-control" type="text" value="{{ isset($employee) ? $employee->work_number : '' }}" v-mask="'phone'" required>
                     </div>
                     <div class="form-group {{$errors->has('extension_number') ? ' has-error' : ''}}">
                         {!! Form::label('extension_number', 'Внутренний') !!} <small>xxxxx</small>

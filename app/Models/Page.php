@@ -10,6 +10,7 @@ class Page extends Model
     protected $fillable = [
         'slug',
         'author_id',
+        'category_id',
         'title',
         'content',
         'announcement',

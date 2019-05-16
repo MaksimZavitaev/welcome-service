@@ -40,38 +40,6 @@
             <section class="sidebar">
                 <ul class="sidebar-menu" data-widget="tree">
                     @hasanyrole('writer|administrator')
-                    <li class="treeview {{ request()->route()->named('admin.categories.*') || request()->route()->named('admin.posts.*') ? 'active' : '' }}">
-                        <a href="#">
-                            <i class="fa fa-registered"></i>
-                            <span>Контент</span>
-                            <span class="pull-right-container">
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </span>
-                        </a>
-                        <ul class="treeview-menu">
-                            <li class="{{ request()->route()->named('admin.posts.*') ? 'active' : '' }}">
-                                <a href="{{ route('admin.posts.index') }}">
-                                    <i class="fa fa-circle-o"></i>
-                                    Контент
-                                    <span class="pull-right-container">
-                                        <i class="fa {{ request()->route()->named('admin.posts.*') ? 'fa-angle-down' : 'fa-angle-left' }} pull-right"></i>
-                                    </span>
-                                </a>
-                                @if(request()->route()->named('admin.posts.*'))
-                                    <ul class="treeview-menu">
-                                        @foreach (\App\Models\Category::pluck('title', 'slug') as $slug => $title)
-                                            <li class="{{ request()->route()->named('admin.posts.*') && request()->get('category') === $slug ? 'active' : '' }}">
-                                                <a href="{{ route('admin.posts.index', ['category' => $slug]) }}">
-                                                    <i class="fa fa-circle-o"></i>
-                                                    {{$title}}
-                                                </a>
-                                            </li>
-                                        @endforeach
-                                    </ul>
-                                @endif
-                            </li>
-                        </ul>
-                    </li>
                     <li class="{{ request()->route()->named('admin.employees.*') ? 'active' : '' }}">
                         <a href="{{ route('admin.employees.index') }}">
                             <i class="fa fa-child"></i>
@@ -88,7 +56,43 @@
                         <a href="{{ route('admin.pages.index') }}">
                             <i class="fa fa-newspaper-o"></i>
                             <span>Страницы</span>
+                            <span class="pull-right-container">
+                                <i class="fa {{ request()->route()->named('admin.pages.*') ? 'fa-angle-down' : 'fa-angle-left' }} pull-right"></i>
+                            </span>
                         </a>
+                        <ul class="treeview-menu">
+                            <li class="{{ request()->route()->named('admin.pages.*') ? 'active' : '' }}">
+                                @if(request()->route()->named('admin.pages.*'))
+                                    <ul class="treeview-menu">
+                                        @foreach (\App\Models\Category::with(['parent', 'categories'])->whereNull('parent_id')->get() as $category)
+                                            <li class="{{ (request()->get('category') === $category->slug) || $category->categories->firstWhere('slug', request()->get('category')) ? 'active' : '' }}">
+                                                <a href="{{ route('admin.pages.index', ['category' => $category->slug]) }}">
+                                                    <i class="fa fa-circle-o"></i>
+                                                    {{$category->title}}
+                                                    @if($category->categories->count() > 0)
+                                                        <span class="pull-right-container">
+                                                            <i class="fa {{ request()->get('category') === $category->slug || $category->categories->firstWhere('slug', request()->get('category')) ? 'fa-angle-down' : 'fa-angle-left' }} pull-right"></i>
+                                                        </span>
+                                                    @endif
+                                                </a>
+                                                @if($category->categories->count() > 0)
+                                                    <ul class="treeview-menu">
+                                                        @foreach ($category->categories as $category)
+                                                            <li class="{{ request()->get('category') === $category->slug ? 'active' : '' }}">
+                                                                <a href="{{ route('admin.pages.index', ['category' => $category->slug]) }}">
+                                                                    <i class="fa fa-circle-o"></i>
+                                                                    {{$category->title}}
+                                                                </a>
+                                                            </li>
+                                                        @endforeach
+                                                    </ul>
+                                                @endif
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                @endif
+                            </li>
+                        </ul>
                     </li>
                     @endhasanyrole
                     @hasrole('administrator')

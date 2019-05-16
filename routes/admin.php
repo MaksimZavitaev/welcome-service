@@ -26,4 +26,5 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('employees/{employee}/page/first_day', 'EmployeeController@deleteFirstDayPage')->name('employees.first_day.delete');
     Route::resource('categories', 'CategoryController')->except(['show']);
     Route::resource('pages', 'PageController')->except(['show']);
+    Route::resource('options', 'OptionController')->except(['show', 'create', 'store', 'delete']);
 });

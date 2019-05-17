@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 
 
 use App\Http\Requests\Admin\UserRequest;
-use App\Http\Requests\Admin\UpdateUser;
 use App\Models\User;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
@@ -33,7 +32,7 @@ class UserController
 
     public function store(UserRequest $request)
     {
-        \DB::transaction(function () use ($request) {
+        $redirector = \DB::transaction(function () use ($request) {
             $user = User::create($request->input());
             if ($user->save() && $user->syncRoles($request->get('roles', [])) && $user->syncPermissions($request->get('permissions', []))) {
                 return redirect()->route('admin.users.edit', $user)->withSuccess('Пользователь успешно создан');
@@ -42,7 +41,7 @@ class UserController
                 ->withInput($request->input())
                 ->withErrors('При создании пользователя произошла ошибка. Пожалуйста повторите попытку снова');
         });
-
+        return $redirector;
     }
 
     public function edit(User $user)

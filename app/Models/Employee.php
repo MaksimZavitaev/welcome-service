@@ -4,10 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
+use Illuminate\Auth\Authenticatable;
+use Illuminate\Foundation\Auth\Access\Authorizable;
 
-class Employee extends Model
+class Employee extends Model implements AuthenticatableContract, AuthorizableContract
 {
     use SoftDeletes;
+
+    use Authenticatable, Authorizable;
 
     protected $fillable = [
         'department',
@@ -45,5 +51,16 @@ class Employee extends Model
         }
 
         return array2object($page);
+    }
+
+    public function getAuthUrl()
+    {
+        $query = [
+            'sign' => encrypt(json_encode([
+                'id' => $this->id,
+            ])),
+        ];
+
+        return route('auth.login', $query);
     }
 }

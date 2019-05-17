@@ -94,6 +94,12 @@
                             </li>
                         </ul>
                     </li>
+                    <li class="{{ request()->route()->named('admin.options.*') ? 'active' : '' }}">
+                        <a href="{{ route('admin.options.index') }}">
+                            <i class="fa fa-cogs"></i>
+                            <span>Настройки</span>
+                        </a>
+                    </li>
                     @endhasanyrole
                     @hasrole('administrator')
                     <li class="header">Администрирование</li>

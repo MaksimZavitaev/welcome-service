@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Services\Shortener;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,6 +24,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        $this->app->singleton(Shortener::class, function ($app) {
+            return new Shortener(config('shortener.login'), config('shortener.password'), config('shortener.base_url'));
+        });
     }
 }

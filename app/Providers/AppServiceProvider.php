@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use App\Services\Shortener;
+use App\Models\Employee;
+use App\Observers\EmployeeObserver;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -14,7 +16,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        Employee::observe(EmployeeObserver::class);
     }
 
     /**

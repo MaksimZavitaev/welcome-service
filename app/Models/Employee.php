@@ -25,6 +25,7 @@ class Employee extends Model implements AuthenticatableContract, AuthorizableCon
         'mobile_number',
         'work_number',
         'extension_number',
+        'short_url',
     ];
 
     public function getFullnameAttribute(): string

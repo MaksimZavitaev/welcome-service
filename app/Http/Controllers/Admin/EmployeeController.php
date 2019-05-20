@@ -144,11 +144,12 @@ class EmployeeController extends Controller
 
     public function sendWelcomeSMS(Employee $employee)
     {
+        $employee->sendWelcomeSms();
         if(request()->ajax()) {
-            request()->session()->flash('success', 'Отправка SMS еще не реализована.');
+            request()->session()->flash('success', 'SMS отправлено.');
             return ['status' => 'ok'];
         }
-        return redirect()->route('admin.employees.edit', $employee)->withSuccess('Отправка SMS еще не реализована.');
+        return redirect()->route('admin.employees.edit', $employee)->withSuccess('SMS отправлено.');
     }
 
     public function generateShortLink(Employee $employee)

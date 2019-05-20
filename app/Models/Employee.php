@@ -10,12 +10,16 @@ use Illuminate\Auth\Authenticatable;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\Welcome;
+use Illuminate\Notifications\Notifiable;
+use App\Notifications\SendLink;
 
 class Employee extends Model implements AuthenticatableContract, AuthorizableContract
 {
     use SoftDeletes;
 
     use Authenticatable, Authorizable;
+
+    use Notifiable;
 
     protected $fillable = [
         'department',
@@ -73,5 +77,21 @@ class Employee extends Model implements AuthenticatableContract, AuthorizableCon
     {
         Mail::to($this->email)->send(new Welcome($this));
         $this->update(['mail_sended_at' => now()]);
+    }
+
+    public function sendWelcomeSms()
+    {
+        $this->notify(new SendLink($this->short_url));
+        $this->update(['sms_sended_at' => now()]);
+    }
+
+    /**
+     * Route notifications for the SMS channel.
+     *
+     * @return string
+     */
+    public function routeNotificationForSms()
+    {
+        return $this->mobile_number;
     }
 }

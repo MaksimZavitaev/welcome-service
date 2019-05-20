@@ -28,6 +28,8 @@ class Employee extends Model implements AuthenticatableContract, AuthorizableCon
         'work_number',
         'extension_number',
         'short_url',
+        'mail_sended_at',
+        'sms_sended_at',
     ];
 
     public function getFullnameAttribute(): string
@@ -70,5 +72,6 @@ class Employee extends Model implements AuthenticatableContract, AuthorizableCon
     public function sendWelcomeMail()
     {
         Mail::to($this->email)->send(new Welcome($this));
+        $this->update(['mail_sended_at' => now()]);
     }
 }

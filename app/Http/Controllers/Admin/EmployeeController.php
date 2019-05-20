@@ -131,4 +131,46 @@ class EmployeeController extends Controller
         return $response;
 
     }
+
+    public function sendWelcomeMail(Employee $employee)
+    {
+        $employee->sendWelcomeMail();
+        if(request()->ajax()) {
+            request()->session()->flash('success', 'Письмо отправлено.');
+            return ['status' => 'ok'];
+        }
+        return redirect()->route('admin.employees.edit', $employee)->withSuccess('Письмо отправлено.');
+    }
+
+    public function sendWelcomeSMS(Employee $employee)
+    {
+        if(request()->ajax()) {
+            request()->session()->flash('success', 'Отправка SMS еще не реализована.');
+            return ['status' => 'ok'];
+        }
+        return redirect()->route('admin.employees.edit', $employee)->withSuccess('Отправка SMS еще не реализована.');
+    }
+
+    public function generateShortLink(Employee $employee)
+    {
+        $employee->updated_at = now();
+        $result = $employee->save();
+        $success_message = 'Выполнено успешно.';
+        $error_message = 'Во время генерации ссылки произошла ошибка.';
+
+        if(request()->ajax()) {
+            if($result) {
+                request()->session()->flash('success', $success_message);
+                return ['status' => 'ok'];
+            }
+            request()->session()->flash('errors', $error_message);
+            return ['status' => 'error'];
+        }
+
+        $redirector = redirect()->route('admin.employees.edit', $employee);
+        if($result) {
+            return $redirector->withSuccess($success_message);
+        }
+        return $redirector->withSuccess($error_message);
+    }
 }

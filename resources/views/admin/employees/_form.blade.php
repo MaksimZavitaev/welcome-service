@@ -76,7 +76,103 @@
             </div> --}}
         </div>
     </div>
+    @isset($employee)
+        <div class="row">
+            <div class="col-md-4">
+                @if($employee->short_url)
+                    <div class="form-group {{$errors->has('short_url') ? ' has-error' : ''}}">
+                        {!! Form::label('short_url', 'Короткая ссылка') !!}
+                        {!! Form::text('short_url', $employee->short_url ?? 'Не сгенерировано', [
+                            'class' => 'form-control',
+                            'required', 'disabled']) !!}
+                    </div>
+                @else
+                    <div class="form-group {{$errors->has('short_url') ? ' has-error' : ''}}">
+                        {!! Form::label('short_url', 'Короткая ссылка') !!}
+                        <div class="input-group">
+                            {!! Form::text('short_url', $employee->short_url ?? 'Не сгенерировано', [
+                            'class' => 'form-control',
+                            'required', 'disabled']) !!}
+                            <span class="input-group-btn">
+                                <button type="button" id="create_short_link" class="btn btn-warning btn-flat">Получить ссылку</button>
+                            </span>
+                        </div>
+                    </div>
+                @endif
+            </div>
+            @isset($employee->short_url)
+                <div class="col-md-4">
+                    <div class="form-group {{$errors->has('department') ? ' has-error' : ''}}">
+                        {!! Form::label('mail_sended_at', 'Письмо отправлено') !!}
+                        <div class="input-group">
+                            {!! Form::text('mail_sended_at', $employee->mail_sended_at ?? 'Нет', [
+                            'class' => 'form-control',
+                            'required', 'disabled']) !!}
+                            <span class="input-group-btn">
+                                <button type="button" data-type="welcome_mail" class="btn btn-warning btn-flat send_welcome">{{ $employee->mail_sended_at ? 'Отправить повторно' : 'Отправить' }}</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group {{$errors->has('department') ? ' has-error' : ''}}">
+                        {!! Form::label('sms_sended_at', 'SMS отправлено') !!}
+                        <div class="input-group">
+                            {!! Form::text('sms_sended_at', $employee->sms_sended_at ?? 'Нет', [
+                            'class' => 'form-control',
+                            'required', 'disabled']) !!}
+                            <span class="input-group-btn">
+                                <button type="button" data-type="welcome_sms" class="btn btn-warning btn-flat send_welcome">{{ $employee->sms_sended_at ? 'Отправить повторно' : 'Отправить' }}</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            @endisset
+        </div>
+    @endisset
 </div>
 <!-- /.box-body -->
 
 @include('admin.shared.form_box_footer')
+
+@push('scripts')
+    <script>
+        function processor(e) {
+            e.preventDefault();
+            var el = $(e.currentTarget);
+            var text = el.text();
+            var icon = $('<i class="fa"></i>').addClass('fa-spinner fa-pulse');
+            return {
+                start: function () {
+                    el.html(icon);
+                },
+                stop: function () {
+                    el.text(text);
+                }
+            }
+        }
+
+        $('.send_welcome').click(function (e) {
+            var type = $(e.currentTarget).data('type');
+            var process = processor(e);
+            process.start();
+            axios.post('/admin/employees/{{$employee->id}}/send/' + type).then(function (res) {
+                window.location.href = '/admin/employees/{{$employee->id}}/edit';
+                process.stop();
+            }).catch(function (error) {
+                process.stop();
+            });
+        });
+
+        $('#create_short_link').click(function (e) {
+            var process = processor(e);
+            process.start();
+            axios.post('/admin/employees/{{$employee->id}}/generate_short_link').then(function (res) {
+                window.location.href = '/admin/employees/{{$employee->id}}/edit';
+                process.stop();
+            }).catch(function (error) {
+                process.stop();
+            });
+        })
+    </script>
+@endpush

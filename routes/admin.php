@@ -22,8 +22,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('users', 'UserController')->except(['show']);
     Route::resource('departments', 'DepartmentController')->except(['show']);
     Route::resource('employees', 'EmployeeController')->except(['show']);
-    Route::put('employees/{employee}/page/first_day', 'EmployeeController@updateFirstDayPage')->name('employees.first_day.update');
-    Route::delete('employees/{employee}/page/first_day', 'EmployeeController@deleteFirstDayPage')->name('employees.first_day.delete');
+    Route::prefix('employees/{employee}')->as('employees.')->group(function() {
+        Route::put('page/first_day', 'EmployeeController@updateFirstDayPage')->name('first_day.update');
+        Route::delete('page/first_day', 'EmployeeController@deleteFirstDayPage')->name('first_day.delete');
+        Route::post('send/welcome_mail', 'EmployeeController@sendWelcomeMail')->name('send_welcome_mail');
+        Route::post('send/welcome_sms', 'EmployeeController@sendWelcomeSMS')->name('send_welcome_sms');
+        Route::post('generate_short_link', 'EmployeeController@generateShortLink')->name('generate_short_link');
+    });
     Route::resource('categories', 'CategoryController')->except(['show']);
     Route::resource('pages', 'PageController')->except(['show']);
     Route::resource('options', 'OptionController')->except(['show', 'create', 'store', 'delete']);

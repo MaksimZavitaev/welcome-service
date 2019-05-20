@@ -16,7 +16,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        Employee::observe(EmployeeObserver::class);
     }
 
     /**
@@ -26,6 +25,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Employee::observe(EmployeeObserver::class);
+
         $this->app->singleton(Shortener::class, function ($app) {
             return new Shortener(config('shortener.login'), config('shortener.password'), config('shortener.base_url'));
         });

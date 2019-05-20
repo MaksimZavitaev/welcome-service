@@ -13,7 +13,7 @@ class EmployeeObserver
         try {
             if(empty($employee->short_url)) {
                 $shortener = app(Shortener::class);
-                $short_url = $shortener->short($employee);
+                $short_url = $shortener->short($employee->getAuthUrl());
                 if(!empty($short_url)) {
                     $employee->update(['short_url' => $short_url]);
                 }

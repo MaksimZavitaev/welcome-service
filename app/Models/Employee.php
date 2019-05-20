@@ -8,6 +8,8 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Foundation\Auth\Access\Authorizable;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\Welcome;
 
 class Employee extends Model implements AuthenticatableContract, AuthorizableContract
 {
@@ -63,5 +65,10 @@ class Employee extends Model implements AuthenticatableContract, AuthorizableCon
         ];
 
         return route('auth.login', $query);
+    }
+
+    public function sendWelcomeMail()
+    {
+        Mail::to($this->email)->send(new Welcome($this));
     }
 }

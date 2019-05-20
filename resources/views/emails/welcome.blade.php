@@ -1,0 +1,1 @@
+{{ $employee->short_url }}

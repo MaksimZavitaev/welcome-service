@@ -17,7 +17,9 @@ Route::post('login', 'Auth\LoginController@login');
 Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('', 'IndexController@index');
+    Route::get('', function () {
+        return redirect()->route('admin.pages.index');
+    });
 
     Route::resource('users', 'UserController')->except(['show']);
     Route::resource('departments', 'DepartmentController')->except(['show']);

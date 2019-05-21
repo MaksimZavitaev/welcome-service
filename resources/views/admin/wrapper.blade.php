@@ -116,6 +116,7 @@
 
         <div class="content-wrapper">
             <section class="content-header">
+                {{ Breadcrumbs::render() }}
             </section>
 
             <section class="content container-fluid">

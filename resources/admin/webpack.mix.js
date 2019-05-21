@@ -28,5 +28,6 @@ mix
         'select2',
         'sweetalert2',
         'trumbowyg',
+        'vuedraggable',
     ])
     .version();

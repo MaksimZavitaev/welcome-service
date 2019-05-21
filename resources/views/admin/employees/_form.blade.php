@@ -135,44 +135,46 @@
 
 @include('admin.shared.form_box_footer')
 
-@push('scripts')
-    <script>
-        function processor(e) {
-            e.preventDefault();
-            var el = $(e.currentTarget);
-            var text = el.text();
-            var icon = $('<i class="fa"></i>').addClass('fa-spinner fa-pulse');
-            return {
-                start: function () {
-                    el.html(icon);
-                },
-                stop: function () {
-                    el.text(text);
+@isset($employee)
+    @push('scripts')
+        <script>
+            function processor(e) {
+                e.preventDefault();
+                var el = $(e.currentTarget);
+                var text = el.text();
+                var icon = $('<i class="fa"></i>').addClass('fa-spinner fa-pulse');
+                return {
+                    start: function () {
+                        el.html(icon);
+                    },
+                    stop: function () {
+                        el.text(text);
+                    }
                 }
             }
-        }
 
-        $('.send_welcome').click(function (e) {
-            var type = $(e.currentTarget).data('type');
-            var process = processor(e);
-            process.start();
-            axios.post('/admin/employees/{{$employee->id}}/send/' + type).then(function (res) {
-                window.location.href = '/admin/employees/{{$employee->id}}/edit';
-                process.stop();
-            }).catch(function (error) {
-                process.stop();
+            $('.send_welcome').click(function (e) {
+                var type = $(e.currentTarget).data('type');
+                var process = processor(e);
+                process.start();
+                axios.post('/admin/employees/{{$employee->id}}/send/' + type).then(function (res) {
+                    window.location.href = '/admin/employees/{{$employee->id}}/edit';
+                    process.stop();
+                }).catch(function (error) {
+                    process.stop();
+                });
             });
-        });
 
-        $('#create_short_link').click(function (e) {
-            var process = processor(e);
-            process.start();
-            axios.post('/admin/employees/{{$employee->id}}/generate_short_link').then(function (res) {
-                window.location.href = '/admin/employees/{{$employee->id}}/edit';
-                process.stop();
-            }).catch(function (error) {
-                process.stop();
-            });
-        })
-    </script>
-@endpush
+            $('#create_short_link').click(function (e) {
+                var process = processor(e);
+                process.start();
+                axios.post('/admin/employees/{{$employee->id}}/generate_short_link').then(function (res) {
+                    window.location.href = '/admin/employees/{{$employee->id}}/edit';
+                    process.stop();
+                }).catch(function (error) {
+                    process.stop();
+                });
+            })
+        </script>
+    @endpush
+@endisset
